@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Start Page</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+    <body>
+        <h1>Address Book</h1>
+        <form method="GET" action="addressbook">
+            <input type="submit" value="Get Address List">
+        </form>
+        <hr>
+        <form method="POST" action="addressbook">
+            <input type="hidden" name="operation" value="add">
+            Name: <input type="text" name="name"><br>
+            Address Line: <input type="text" name="address_line"><br>
+            City: <input type="text" name="city"><br>
+            Zip: <input type="text" name="zip"><br>
+            <input type="submit" value="Add Address">
+        </form>
+        <hr>
+        <form method="POST" action="addressbook">
+            <input type="hidden" name="operation" value="delete">
+            Address ID: <input type="text" name="address_id">
+            <input type="submit" value="Remove Address">
+        </form>
+    </body>
+</html>
