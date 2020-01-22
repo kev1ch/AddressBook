@@ -44,6 +44,13 @@ public class MyAddressServlet extends HttpServlet {
         sendResponse(response, web_string);
     }
     
+    /**
+     * Deletes an address by id
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException 
+     */
     private void doDeleteAddress(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         ServletContext context = request.getSession().getServletContext();
@@ -51,7 +58,7 @@ public class MyAddressServlet extends HttpServlet {
         String id = request.getParameter("address_id");
         int int_id = Integer.parseInt(id);
         address_list.remove(int_id);
-        String web_string = constructWebPage("delete", "removed address #" + id);
+        String web_string = constructWebPage("delete", "DEL#" + id);
         sendResponse(response, web_string);
     }
     
