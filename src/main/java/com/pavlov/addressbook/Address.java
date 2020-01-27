@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 public class Address implements Serializable {
     
+    private int id;
+    
     private String name;
     private String address_line;
     private String city;
@@ -32,10 +34,18 @@ public class Address implements Serializable {
         return zip;
     }
 
+    public void setID(int id) {
+        this.id = id;
+    }
+    
+    public int getID() {
+        return this.id;
+    }
+    
     @Override
     public String toString() {
-        String result = String.format("Name: %s, Address Line: %s, City: %s, " +
-                                      "Zip: %s", name, address_line, city, zip);
+        String result = String.format("ID: %d, Name: %s, Address Line: %s, City: %s, " +
+                                      "Zip: %s", id, name, address_line, city, zip);
         return result;
     }
     

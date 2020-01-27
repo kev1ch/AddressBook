@@ -1,0 +1,9 @@
+1. align text elements - low
+2. permanent data saving - high
+3. add 'delete' button/link to address list page - low/medium
+4. permanent address id - high - DONE
+5. address google check - low
+6. android application - low
+7. add optional fields - low/medium
+8. address search - medium
+9. address editing - medium
