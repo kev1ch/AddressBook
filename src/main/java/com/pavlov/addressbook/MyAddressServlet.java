@@ -9,6 +9,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class MyAddressServlet extends HttpServlet {
+
+    @Override
+    public void init() throws ServletException {
+        AddressDB.load();
+    }
+
+    @Override
+    public void destroy() {
+        AddressDB.save();
+    }
+    
+    
     
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
