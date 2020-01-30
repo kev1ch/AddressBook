@@ -80,11 +80,16 @@ public class AddressDB {
             for (int i = 0; i < lines.size(); i++) {
                 String address_string = lines.get(i);
                 String[] address_fields = address_string.split(";");
-                Address loaded_address = new Address(address_fields[1], address_fields[2],
-                                                     address_fields[3], address_fields[4]);
-                int id = Integer.parseInt(address_fields[0]);
-                loaded_address.setID(id);
-                address_list.add(loaded_address);
+                try {
+                    Address loaded_address = new Address(address_fields[1], address_fields[2],
+                                                        address_fields[3], address_fields[4]);
+                
+                    int id = Integer.parseInt(address_fields[0]);
+                    loaded_address.setID(id);
+                    address_list.add(loaded_address);
+                } catch (AddressException exception) {
+                    exception.printStackTrace();
+                }
             }
         } catch (IOException ex) {
             Logger.getLogger(AddressDB.class.getName()).log(Level.SEVERE, null, ex);

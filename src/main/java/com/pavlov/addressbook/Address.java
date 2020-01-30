@@ -11,13 +11,30 @@ public class Address implements Serializable {
     private String city;
     private String zip;
     
-    public Address(String name, String address_line, String city, String zip) {
+    public Address(String name, String address_line, String city, String zip) throws AddressException {
+        verifyFields(name, address_line, city, zip);
         this.name = name;
         this.address_line = address_line;
         this.city = city;
         this.zip = zip;
     }
 
+    private void verifyFields(String name, String address_line, String city, String zip)
+            throws AddressException {
+        if (name == null || name.isBlank()) {
+            throw new AddressException("Input a name please. This is a required field.");
+        }
+        if (address_line == null || address_line.isBlank()) {
+            throw new AddressException("Input an address please. This is a required field.");
+        }
+        if (city == null || city.isBlank()) {
+            throw new AddressException("Input a city please. This is a required field.");
+        }
+        if (zip == null || zip.isBlank()) {
+            throw new AddressException("Input a zip please. This is a required field.");
+        }
+    }
+    
     public String getName() {
         return name;
     }
