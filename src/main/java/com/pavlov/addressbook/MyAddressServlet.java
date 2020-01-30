@@ -20,8 +20,6 @@ public class MyAddressServlet extends HttpServlet {
         AddressDB.save();
     }
     
-    
-    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -39,9 +37,12 @@ public class MyAddressServlet extends HttpServlet {
         String address_line = request.getParameter("address_line");
         String city = request.getParameter("city");
         String zip = request.getParameter("zip");
+        String phone = request.getParameter("phone");
+        String state = request.getParameter("state");
+        String country = request.getParameter("country");
         String web_string;
         try {
-            Address new_address = new Address(name, address_line, city, zip);
+            Address new_address = new Address(name, address_line, city, zip, phone, state, country);
             AddressDB.add(new_address);
             web_string = constructWebPage("add", "added an address: " + new_address);
         } catch (AddressException exception) {

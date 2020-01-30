@@ -58,9 +58,10 @@ public class AddressDB {
         try (OutputStream output_stream = new FileOutputStream(data_file, false)) {
             for (int i = 0; i < address_list.size(); i++) {
                 Address address = address_list.get(i);
-                String address_line = String.format("%d;%s;%s;%s;%s\n",
+                String address_line = String.format("%d;%s;%s;%s;%s;%s;%s;%s\n",
                         address.getID(), address.getName(), address.getAddressLine(),
-                        address.getCity(), address.getZip());
+                        address.getCity(), address.getZip(), address.getPhone(),
+                        address.getState(), address.getCountry());
                 byte[] address_line_bytes = address_line.getBytes("UTF-8");
                 output_stream.write(address_line_bytes);
             }
@@ -80,10 +81,13 @@ public class AddressDB {
             for (int i = 0; i < lines.size(); i++) {
                 String address_string = lines.get(i);
                 String[] address_fields = address_string.split(";");
+                int address_fields_length = address_fields.length;
                 try {
                     Address loaded_address = new Address(address_fields[1], address_fields[2],
-                                                        address_fields[3], address_fields[4]);
-                
+                                                     address_fields[3], address_fields[4],
+                                                     address_fields_length > 5 ? address_fields[5] : "",
+                                                     address_fields_length > 6 ? address_fields[6] : "",
+                                                     address_fields_length > 7 ? address_fields[7] : "");
                     int id = Integer.parseInt(address_fields[0]);
                     loaded_address.setID(id);
                     address_list.add(loaded_address);

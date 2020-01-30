@@ -4,7 +4,7 @@
 4. permanent address id - high - DONE
 5. address google check - low
 6. android application - low
-7. add optional fields - low/medium
+7. add optional fields - low/medium - DONE
 8. address search - medium
 9. address editing - medium
 10. download addressbook to disk - medium

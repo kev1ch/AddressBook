@@ -10,13 +10,20 @@ public class Address implements Serializable {
     private String address_line;
     private String city;
     private String zip;
+    private String phone;
+    private String state;
+    private String country;
     
-    public Address(String name, String address_line, String city, String zip) throws AddressException {
+    public Address(String name, String address_line, String city, String zip,
+           String phone, String state, String country)throws AddressException {
         verifyFields(name, address_line, city, zip);
         this.name = name;
         this.address_line = address_line;
         this.city = city;
         this.zip = zip;
+        this.phone = phone;
+        this.state = state;
+        this.country = country;
     }
 
     private void verifyFields(String name, String address_line, String city, String zip)
@@ -51,6 +58,18 @@ public class Address implements Serializable {
         return zip;
     }
 
+    public String getPhone() {
+        return phone;
+    }
+    
+    public String getState() {
+        return state;
+    }
+    
+    public String getCountry() {
+        return country;
+    }
+    
     public void setID(int id) {
         this.id = id;
     }
@@ -62,7 +81,8 @@ public class Address implements Serializable {
     @Override
     public String toString() {
         String result = String.format("ID: %d, Name: %s, Address Line: %s, City: %s, " +
-                                      "Zip: %s", id, name, address_line, city, zip);
+                                      "Zip: %s, Phone: %s, State/Province: %s, Country: %s",
+                                      id, name, address_line, city, zip, phone, state, country);
         return result;
     }
     
