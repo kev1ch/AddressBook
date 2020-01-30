@@ -4,7 +4,7 @@
 
     <groupId>com.pavlov</groupId>
     <artifactId>AddressBook</artifactId>
-    <version>1.05</version>
+    <version>1.06</version>
     <packaging>war</packaging>
 
     <name>AddressBook</name>
