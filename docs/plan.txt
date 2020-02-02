@@ -13,3 +13,4 @@
 13. unique address verification - high - DONE
 14. address list sort - medium
 15. address list filtering - medium
+16. address list table view - medium - DONE

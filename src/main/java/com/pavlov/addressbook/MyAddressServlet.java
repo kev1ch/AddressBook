@@ -71,11 +71,39 @@ public class MyAddressServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String list_of_addresses = "";
+        StringBuilder list_of_addresses = new StringBuilder("<table border=1>");
+        list_of_addresses.append("<tr><th>ID</th><th>Name</th><th>Address Line</th>"
+                + "<th>City</th><th>Zip</th><th>Phone</th><th>State</th><th>Country</th></tr>");
         List<Address> address_list = AddressDB.getAll();
         for (Address address : address_list) {
-            list_of_addresses = list_of_addresses + address + "<br>";
+            list_of_addresses.append("<tr>");
+            list_of_addresses.append("<td>");
+            list_of_addresses.append(address.getID());
+            list_of_addresses.append("</td>");
+            list_of_addresses.append("<td>");
+            list_of_addresses.append(address.getName());
+            list_of_addresses.append("</td>");
+            list_of_addresses.append("<td>");
+            list_of_addresses.append(address.getAddressLine());
+            list_of_addresses.append("</td>");
+            list_of_addresses.append("<td>");
+            list_of_addresses.append(address.getCity());
+            list_of_addresses.append("</td>");
+            list_of_addresses.append("<td>");
+            list_of_addresses.append(address.getZip());
+            list_of_addresses.append("</td>");
+            list_of_addresses.append("<td>");
+            list_of_addresses.append(address.getPhone());
+            list_of_addresses.append("</td>");
+            list_of_addresses.append("<td>");
+            list_of_addresses.append(address.getState());
+            list_of_addresses.append("</td>");
+            list_of_addresses.append("<td>");
+            list_of_addresses.append(address.getCountry());
+            list_of_addresses.append("</td>");
+            list_of_addresses.append("</tr>");
         }
+        list_of_addresses.append("</table>");
         String web_string = constructWebPage("get", "list of addresses: <br>" + list_of_addresses);
         sendResponse(response, web_string);
     }
