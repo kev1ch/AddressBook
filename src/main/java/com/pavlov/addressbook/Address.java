@@ -86,6 +86,16 @@ public class Address implements Serializable {
         return result;
     }
     
-    
+    @Override
+    public boolean equals(Object object) {
+        boolean result = false;
+        if (object instanceof Address) {
+            Address address_object = (Address)object;
+            result = address_object.getAddressLine().equalsIgnoreCase(address_line) &&
+                address_object.getCity().equalsIgnoreCase(city) &&
+                address_object.getZip().equalsIgnoreCase(zip);
+        }
+        return result;
+    }
     
 }

@@ -19,10 +19,23 @@ public class AddressDB {
     
     private static final List<Address> address_list = new ArrayList<>();
     
-    public static void add(Address address) {
-        int available_id = getAvailableID();
-        address.setID(available_id);
-        address_list.add(address);
+    public static void add(Address address) throws AddressException {
+        if (isAddressUnique(address)) {
+            int available_id = getAvailableID();
+            address.setID(available_id);
+            address_list.add(address);   
+        } else {
+            throw new AddressException("the given address already exists");
+        }
+    }
+    
+    private static boolean isAddressUnique(Address address) {
+        for (Address address_element : address_list) {
+            if (address_element.equals(address)) {
+                return false;
+            }
+        }
+        return true;
     }
     
     public static void modify(Address address) {
