@@ -22,11 +22,15 @@ public class AddressDB {
     public static void add(Address address) throws AddressException {
         if (isAddressUnique(address)) {
             int available_id = getAvailableID();
-            address.setID(available_id);
-            address_list.add(address);   
+            add(address, available_id);   
         } else {
             throw new AddressException("the given address already exists");
         }
+    }
+    
+    public static void add(Address address, int id) throws AddressException {
+        address.setID(id);
+        address_list.add(address);
     }
     
     private static boolean isAddressUnique(Address address) {
@@ -38,8 +42,9 @@ public class AddressDB {
         return true;
     }
     
-    public static void modify(Address address) {
-        
+    public static void modify(Address address) throws AddressException {
+        remove(address.getID());
+        add(address, address.getID());
     }
     
     public static void remove(int id) {
@@ -63,6 +68,18 @@ public class AddressDB {
             max_id = max_id > address.getID() ? max_id : address.getID();
         }
         return max_id + 1;
+    }
+    
+    public static Address getByID(String address_id) {
+        Address result_address = null;
+        for (Address address_element : address_list) {
+            String string_id = String.valueOf(address_element.getID());
+            if (string_id.equals(address_id)) {
+                result_address = address_element;
+                break;
+            }
+        }
+        return result_address;
     }
     
     public static void save() {

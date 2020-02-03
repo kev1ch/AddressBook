@@ -6,7 +6,7 @@
 6. android application - low
 7. add optional fields - low/medium - DONE
 8. address search - medium
-9. address editing - medium
+9. address editing - medium - DONE
 10. download addressbook to disk - medium
 11. upload addressbook from disk - medium
 12. mandatory field verification - high - DONE
@@ -14,3 +14,4 @@
 14. address list sort - medium
 15. address list filtering - medium
 16. address list table view - medium - DONE
+17. correct back to main page - medium

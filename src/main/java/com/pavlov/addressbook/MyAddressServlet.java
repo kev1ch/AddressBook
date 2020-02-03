@@ -28,9 +28,34 @@ public class MyAddressServlet extends HttpServlet {
             doAddAddress(request, response);
         } else if (operation.equals("delete")) {
             doDeleteAddress(request, response);
+        } else if (operation.equals("modify")) {
+            doModifyAddress(request, response);
         }
     }
 
+    private void doModifyAddress(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String id = request.getParameter("id");
+        String name = request.getParameter("name");
+        String address_line = request.getParameter("address_line");
+        String city = request.getParameter("city");
+        String zip = request.getParameter("zip");
+        String phone = request.getParameter("phone");
+        String state = request.getParameter("state");
+        String country = request.getParameter("country");
+        String web_string;
+        try {
+            Address modify_address = new Address(name, address_line, city, zip, phone, state, country);
+            modify_address.setID(Integer.parseInt(id));
+            AddressDB.modify(modify_address);
+            web_string = constructWebPage("modify", "modified an address: " + modify_address);
+        } catch (AddressException exception) {
+            String message = exception.getMessage();
+            web_string = constructWebPage("error", message);
+        }
+        sendResponse(response, web_string);
+    }
+    
     private void doAddAddress(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String name = request.getParameter("name");
@@ -71,9 +96,21 @@ public class MyAddressServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String edit_parameter = request.getParameter("edit");
+        if (edit_parameter != null) {
+            modifyAddress(request, response);
+        } else {
+            showAddressList(request, response);
+        }
+        showAddressList(request, response);
+    }
+    
+    private void showAddressList(HttpServletRequest request, HttpServletResponse response)
+            throws IOException {
         StringBuilder list_of_addresses = new StringBuilder("<table border=1>");
         list_of_addresses.append("<tr><th>ID</th><th>Name</th><th>Address Line</th>"
-                + "<th>City</th><th>Zip</th><th>Phone</th><th>State</th><th>Country</th></tr>");
+                + "<th>City</th><th>Zip</th><th>Phone</th><th>State</th><th>Country</th>"
+                + "<th></th></tr>");
         List<Address> address_list = AddressDB.getAll();
         for (Address address : address_list) {
             list_of_addresses.append("<tr>");
@@ -101,10 +138,43 @@ public class MyAddressServlet extends HttpServlet {
             list_of_addresses.append("<td>");
             list_of_addresses.append(address.getCountry());
             list_of_addresses.append("</td>");
+            list_of_addresses.append("<td>");
+            list_of_addresses.append("<a href='?edit=" + address.getID() + "'>Edit</a>");
+            list_of_addresses.append("</td>");
             list_of_addresses.append("</tr>");
         }
         list_of_addresses.append("</table>");
         String web_string = constructWebPage("get", "list of addresses: <br>" + list_of_addresses);
+        sendResponse(response, web_string);
+    }
+    
+    private void modifyAddress(HttpServletRequest request, HttpServletResponse response)
+            throws IOException {
+        String address_id = request.getParameter("edit");
+        Address modify_address = AddressDB.getByID(address_id);
+        StringBuilder modify_form = new StringBuilder("");
+        modify_form.append("<form method=\"POST\" action=\"addressbook\">");
+        modify_form.append("<input type=\"hidden\" name=\"operation\" value=\"modify\">");
+        modify_form.append("<input type=\"hidden\" name=\"id\" value=\"" + address_id + "\">");
+        modify_form.append("<table>");
+        modify_form.append("<tr><td>Name:</td><td><input type=\"text\" name=\"name\""
+                + "value='" + modify_address.getName() + "'></td></tr>");
+        modify_form.append("<tr><td>Address Line:</td><td><input type=\"text\" name=\"address_line\""
+                + "value='" + modify_address.getAddressLine() +"'></td></tr>");
+        modify_form.append("<tr><td>City:</td><td><input type=\"text\" name=\"city\""
+                + "value='" + modify_address.getCity() + "'></td></tr>");
+        modify_form.append("<tr><td>Zip:</td><td><input type=\"text\" name=\"zip\""
+                + "value='" + modify_address.getZip() + "'></td></tr>");
+        modify_form.append("<tr><td>Phone:</td><td><input type=\"text\" name=\"phone\""
+                + "value='" + modify_address.getPhone() + "'></td></tr>");
+        modify_form.append("<tr><td>State or Province:</td><td><input type=\"text\" name=\"state\""
+                + "value='" + modify_address.getState() + "'></td></tr>");
+        modify_form.append("<tr><td>Country:</td><td><input type=\"text\" name=\"country\""
+                + "value='" + modify_address.getCountry() + "'></td></tr>");
+        modify_form.append("</table>");
+        modify_form.append("<input type=\"submit\" value=\"Modify Address\">");
+        modify_form.append("</form>");
+        String web_string = constructWebPage("modify", "modify address:<br>" + modify_form);
         sendResponse(response, web_string);
     }
     
