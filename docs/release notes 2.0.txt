@@ -1,0 +1,10 @@
+1. align text elements
+2. permanent data saving
+3. add 'delete' button/link to address list page
+4. permanent address id
+5. add optional fields
+6. address editing
+7. mandatory field verification
+8. unique address verification
+9. address list table view
+10. correct back to main page
