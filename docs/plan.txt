@@ -14,4 +14,4 @@
 14. address list sort - medium
 15. address list filtering - medium
 16. address list table view - medium - DONE
-17. correct back to main page - medium
+17. correct back to main page - medium - DONE

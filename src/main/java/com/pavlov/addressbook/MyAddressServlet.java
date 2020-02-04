@@ -48,10 +48,11 @@ public class MyAddressServlet extends HttpServlet {
             Address modify_address = new Address(name, address_line, city, zip, phone, state, country);
             modify_address.setID(Integer.parseInt(id));
             AddressDB.modify(modify_address);
-            web_string = constructWebPage("modify", "modified an address: " + modify_address);
+            web_string = constructWebPage("modify", "modified an address: " + modify_address,
+                                                                   request.getContextPath());
         } catch (AddressException exception) {
             String message = exception.getMessage();
-            web_string = constructWebPage("error", message);
+            web_string = constructWebPage("error", message, request.getContextPath());
         }
         sendResponse(response, web_string);
     }
@@ -69,10 +70,11 @@ public class MyAddressServlet extends HttpServlet {
         try {
             Address new_address = new Address(name, address_line, city, zip, phone, state, country);
             AddressDB.add(new_address);
-            web_string = constructWebPage("add", "added an address: " + new_address);
+            web_string = constructWebPage("add", "added an address: " + new_address,
+                                                          request.getContextPath());
         } catch (AddressException exception) {
             String message = exception.getMessage();
-            web_string = constructWebPage("error", message);
+            web_string = constructWebPage("error", message, request.getContextPath());
         }
         sendResponse(response, web_string);
     }
@@ -89,7 +91,7 @@ public class MyAddressServlet extends HttpServlet {
         String id = request.getParameter("address_id");
         int int_id = Integer.parseInt(id);
         AddressDB.remove(int_id);
-        String web_string = constructWebPage("delete", "DEL#" + id);
+        String web_string = constructWebPage("delete", "DEL#" + id, request.getContextPath());
         sendResponse(response, web_string);
     }
     
@@ -144,7 +146,8 @@ public class MyAddressServlet extends HttpServlet {
             list_of_addresses.append("</tr>");
         }
         list_of_addresses.append("</table>");
-        String web_string = constructWebPage("get", "list of addresses: <br>" + list_of_addresses);
+        String web_string = constructWebPage("get", "list of addresses: <br>" + list_of_addresses,
+                                                                        request.getContextPath());
         sendResponse(response, web_string);
     }
     
@@ -174,13 +177,15 @@ public class MyAddressServlet extends HttpServlet {
         modify_form.append("</table>");
         modify_form.append("<input type=\"submit\" value=\"Modify Address\">");
         modify_form.append("</form>");
-        String web_string = constructWebPage("modify", "modify address:<br>" + modify_form);
+        String web_string = constructWebPage("modify", "modify address:<br>" + modify_form,
+                                                                 request.getContextPath());
         sendResponse(response, web_string);
     }
     
-    private String constructWebPage(String operation, String content) {
+    private String constructWebPage(String operation, String content, String servlet_context) {
         String result = "<html> <head> <title> %s </title> </head> <body>"
-                + "<h1>%s</h1><br>%s <hr> <a href=\"javascript:history.go(-1)\">Back to main page</a> </body> </html>";
+                + "<h1>%s</h1><br>%s <hr> <a href=\"" + servlet_context +
+                                "\">Back to main page</a> </body> </html>";
         String title = "";
         if (operation.equals("get")) {
             title = "print all addresses";
