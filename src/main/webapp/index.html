@@ -3,6 +3,15 @@
     <head>
         <title>Start Page</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script type="text/javascript">
+            function deleteButtonClicked() {
+                if (confirm('Are you sure?')) {
+                    delete_form.submit();
+                } else {
+                    return false;
+                }
+            }
+        </script>
     </head>
     <body>
         <h1>Address Book</h1>
@@ -24,10 +33,10 @@
             <input type="submit" value="Add Address">
         </form>
         <hr>
-        <form method="POST" action="addressbook">
+        <form method="POST" action="addressbook" id="delete_form">
             <input type="hidden" name="operation" value="delete">
             Address ID: <input type="text" name="delete">
-            <input type="submit" value="Remove Address">
+            <input type="button" onclick="deleteButtonClicked()" value="Remove Address">
         </form>
     </body>
 </html>

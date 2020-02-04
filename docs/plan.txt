@@ -5,4 +5,4 @@
 5. upload addressbook from disk - high
 6. address list sort - medium
 7. address list filtering - medium
-8. delete link confirmation in dialogue window - high
+8. delete link confirmation in dialogue window - high - DONE

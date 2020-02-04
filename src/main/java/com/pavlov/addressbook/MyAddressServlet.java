@@ -147,7 +147,8 @@ public class MyAddressServlet extends HttpServlet {
             list_of_addresses.append("<a href='?edit=" + address.getID() + "'>Edit</a>");
             list_of_addresses.append("</td>");
             list_of_addresses.append("<td>");
-            list_of_addresses.append("<a href='?delete=" + address.getID() + "'>Remove</a>");
+            list_of_addresses.append("<a onclick=\"return confirm('Are you sure?')\""
+                             + " href='?delete=" + address.getID() + "'>Remove</a>");
             list_of_addresses.append("</td>");
             list_of_addresses.append("</tr>");
         }
