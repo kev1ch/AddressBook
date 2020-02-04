@@ -1,6 +1,6 @@
 1. align text elements - low - DONE
 2. permanent data saving - high - DONE
-3. add 'delete' button/link to address list page - low/medium
+3. add 'delete' button/link to address list page - low/medium - DONE
 4. permanent address id - high - DONE
 5. address google check - low
 6. android application - low
@@ -15,3 +15,4 @@
 15. address list filtering - medium
 16. address list table view - medium - DONE
 17. correct back to main page - medium - DONE
+18. delete link confirmation in dialogue window - medium

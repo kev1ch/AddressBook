@@ -88,7 +88,7 @@ public class MyAddressServlet extends HttpServlet {
      */
     private void doDeleteAddress(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String id = request.getParameter("address_id");
+        String id = request.getParameter("delete");
         int int_id = Integer.parseInt(id);
         AddressDB.remove(int_id);
         String web_string = constructWebPage("delete", "DEL#" + id, request.getContextPath());
@@ -99,8 +99,11 @@ public class MyAddressServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String edit_parameter = request.getParameter("edit");
+        String delete_parameter = request.getParameter("delete");
         if (edit_parameter != null) {
             modifyAddress(request, response);
+        } else if (delete_parameter != null) {
+            doDeleteAddress(request, response);
         } else {
             showAddressList(request, response);
         }
@@ -112,7 +115,7 @@ public class MyAddressServlet extends HttpServlet {
         StringBuilder list_of_addresses = new StringBuilder("<table border=1>");
         list_of_addresses.append("<tr><th>ID</th><th>Name</th><th>Address Line</th>"
                 + "<th>City</th><th>Zip</th><th>Phone</th><th>State</th><th>Country</th>"
-                + "<th></th></tr>");
+                + "<th></th><th></th></tr>");
         List<Address> address_list = AddressDB.getAll();
         for (Address address : address_list) {
             list_of_addresses.append("<tr>");
@@ -142,6 +145,9 @@ public class MyAddressServlet extends HttpServlet {
             list_of_addresses.append("</td>");
             list_of_addresses.append("<td>");
             list_of_addresses.append("<a href='?edit=" + address.getID() + "'>Edit</a>");
+            list_of_addresses.append("</td>");
+            list_of_addresses.append("<td>");
+            list_of_addresses.append("<a href='?delete=" + address.getID() + "'>Remove</a>");
             list_of_addresses.append("</td>");
             list_of_addresses.append("</tr>");
         }
