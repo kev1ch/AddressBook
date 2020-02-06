@@ -38,5 +38,10 @@
             Address ID: <input type="text" name="delete">
             <input type="button" onclick="deleteButtonClicked()" value="Remove Address">
         </form>
+        <hr>
+        <form method="POST" action="addressbook">
+            <input type="submit" value="Download Address List">
+            <input type="hidden" name="operation" value="download">
+        </form>
     </body>
 </html>

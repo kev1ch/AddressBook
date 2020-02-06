@@ -82,19 +82,26 @@ public class AddressDB {
         return result_address;
     }
     
+    public static String getAddressListAsString() {
+        StringBuilder address_list_string = new StringBuilder();
+        for (int i = 0; i < address_list.size(); i++) {
+            Address address = address_list.get(i);
+            String address_line = String.format("%d;%s;%s;%s;%s;%s;%s;%s\n",
+                address.getID(), address.getName(), address.getAddressLine(),
+                address.getCity(), address.getZip(), address.getPhone(),
+                address.getState(), address.getCountry()); 
+            address_list_string.append(address_line);
+        }
+        return address_list_string.toString();
+    }
+    
     public static void save() {
         System.out.println("saved to: " + FILENAME);
         File data_file = new File(FILENAME);
         try (OutputStream output_stream = new FileOutputStream(data_file, false)) {
-            for (int i = 0; i < address_list.size(); i++) {
-                Address address = address_list.get(i);
-                String address_line = String.format("%d;%s;%s;%s;%s;%s;%s;%s\n",
-                        address.getID(), address.getName(), address.getAddressLine(),
-                        address.getCity(), address.getZip(), address.getPhone(),
-                        address.getState(), address.getCountry());
-                byte[] address_line_bytes = address_line.getBytes("UTF-8");
-                output_stream.write(address_line_bytes);
-            }
+            String address_list_string = getAddressListAsString();
+            byte[] address_line_bytes = address_list_string.getBytes("UTF-8");
+            output_stream.write(address_line_bytes);
         } catch (FileNotFoundException ex) {
             System.out.println("File not found");
         } catch (IOException ex) {

@@ -30,9 +30,20 @@ public class MyAddressServlet extends HttpServlet {
             doDeleteAddress(request, response);
         } else if (operation.equals("modify")) {
             doModifyAddress(request, response);
+        } else if (operation.equals("download")) {
+            doDownloadAddressList(request, response);
         }
     }
 
+    private void doDownloadAddressList(HttpServletRequest request, HttpServletResponse response)
+                                                                            throws IOException {
+        response.setContentType("text/plain");
+        response.setHeader("Content-disposition", "attachment; filename=addresses.txt");
+        try (PrintWriter out = response.getWriter()) {
+            out.print(AddressDB.getAddressListAsString());
+        }
+    }
+    
     private void doModifyAddress(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String id = request.getParameter("id");

@@ -1,7 +1,7 @@
 1. address google check - low
 2. android application - low
 3. address search - medium
-4. download addressbook to disk - high
+4. download addressbook to disk - high - DONE
 5. upload addressbook from disk - high
 6. address list sort - medium
 7. address list filtering - medium
