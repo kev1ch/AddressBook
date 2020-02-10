@@ -12,7 +12,9 @@ public class MyAddressServlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        AddressDB.load();
+        if (!AddressDB.isLoaded()) {
+            AddressDB.load();
+        }
     }
 
     @Override

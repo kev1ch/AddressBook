@@ -137,4 +137,8 @@ public class AddressDB {
         }
     }
     
+    public static boolean isLoaded() {
+        return !address_list.isEmpty();
+    }
+    
 }
